@@ -1,0 +1,48 @@
+ame: Update Xeno DLL
+
+
+on:
+schedule:
+- cron: "0 */6 * * *" # prüft alle 6 Stunden/checks every 6hrs
+workflow_dispatch: # manuell startbar
+
+
+jobs:
+update:
+runs-on: ubuntu-latest
+
+
+steps:
+- name: Checkout repo
+uses: actions/checkout@v3
+
+
+- name: Download ZIP
+run: wget -O xeno.zip https://xeno.onl/download
+
+
+- name: Extract ZIP
+run: unzip -o xeno.zip -d xeno
+
+
+- name: Move Xeno.dll
+run: |
+mkdir -p dll
+if [ -f xeno/Xeno.dll ]; then
+cp xeno/Xeno.dll dll/Xeno.dll
+else
+find xeno -name "Xeno.dll" -exec cp {} dll/Xeno.dll \;
+fi
+
+
+- name: Commit changes if updated
+run: |
+git config user.name "github-actions"
+git config user.email "github-actions@github.com"
+if ! git diff --quiet; then
+git add dll/Xeno.dll
+git commit -m "Auto update Xeno.dll"
+git push
+else
+echo "Keine Änderungen"
+fi
