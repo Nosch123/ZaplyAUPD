@@ -18,7 +18,7 @@ uses: actions/checkout@v3
 
 
 - name: Download ZIP
-run: wget -O xeno.zip https://xeno.onl/download
+run: wget -O xeno.zip https://xeno.onl/downloads/Xeno-v1.3.zip
 
 
 - name: Extract ZIP
