@@ -16,7 +16,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Download ZIP
-      run: wget -O xeno.zip https://xeno.onl/downloads/Xeno-v1.3.zip
+      run: wget -O xeno.zip https://xeno.onl/downloads/Xeno-v1.3.05.zip
 
     - name: Extract ZIP
       run: unzip -o xeno.zip -d xeno
